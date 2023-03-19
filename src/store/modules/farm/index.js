@@ -10,14 +10,7 @@ export default {
       oneCircleTime: null,
       circlesAmount: null,
       cost: null,
-      drops: [
-        {
-          id: 1,
-          dropName: "",
-          chance: 0,
-          const: 0,
-        },
-      ],
+      drops: [],
     };
   },
   mutations,

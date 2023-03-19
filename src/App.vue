@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import DropRate from "./components/DropRate.vue";
+import DropRate from "./components/drop/DropRate.vue";
 import TheHeader from "./components/layout/TheHeader.vue";
 import WhatRuning from "./components/WhatRuning.vue";
 
