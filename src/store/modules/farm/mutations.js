@@ -1,5 +1,5 @@
 export default {
-  setDrop(state) {
-    state.drops = [];
+  addDrop(state, payload) {
+    state.drops.push(payload);
   },
 };

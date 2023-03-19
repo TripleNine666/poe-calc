@@ -5,26 +5,40 @@
       <v-card-subtitle>Впиши все в текстовые поля</v-card-subtitle>
     </v-card-item>
     <!-- drop component -->
-    <drop-item v-for="_ in dropAmount" :key="_"></drop-item>
+    <drop-item
+      v-for="_ in dropAmount"
+      :key="_"
+      @drop-save="dropSavedIncriment(true)"
+      @change-save="dropSavedIncriment()"
+    ></drop-item>
     <!-- add drop button -->
-    <v-btn color="success" variant="plain" @click="addDrop">Add drop</v-btn>
-    <v-btn
-      color="error"
-      variant="plain"
-      v-if="showDeleteButton"
-      @click="deleteDrop"
-      >Delete last drop</v-btn
-    >
+    <div class="actions">
+      <base-button :disabled="showResultButtonAvailable" link to="/result"
+        >Show Result</base-button
+      >
+      <div>
+        <v-btn color="success" variant="plain" @click="addDrop">Add drop</v-btn>
+        <v-btn
+          color="error"
+          variant="plain"
+          v-if="showDeleteButton"
+          @click="deleteDrop"
+          >Delete last drop</v-btn
+        >
+      </div>
+    </div>
   </base-card>
 </template>
 
 <script>
 import DropItem from "./DropItem.vue";
+
 export default {
   components: { DropItem },
   data() {
     return {
       dropAmount: 1,
+      dropSavedAmount: 0,
     };
   },
   computed: {
@@ -34,6 +48,10 @@ export default {
     showDeleteButton() {
       return this.dropAmount > 0;
     },
+    showResultButtonAvailable() {
+      console.log(this.dropAmount !== this.dropSavedAmount);
+      return this.dropAmount !== this.dropSavedAmount;
+    },
   },
   methods: {
     addDrop() {
@@ -42,6 +60,26 @@ export default {
     deleteDrop() {
       this.dropAmount--;
     },
+    dropSavedIncriment(incriment = false) {
+      if (incriment) {
+        this.dropSavedAmount++;
+      } else {
+        this.dropSavedAmount--;
+      }
+      console.log(this.dropSavedAmount);
+    },
   },
 };
 </script>
+
+<style scoped>
+.actions {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.actions div {
+  display: flex;
+  justify-content: center;
+}
+</style>
