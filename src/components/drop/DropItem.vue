@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center" class="ma-2">
-    <v-col cols="4"
+    <v-col
       ><v-text-field
         :disabled="disableTextField"
         label="Название"
@@ -25,12 +25,16 @@
     ></v-col>
     <base-button v-if="!disableTextField" @click="saveDrop">Save</base-button>
     <base-button v-else @click="changeDrop">Change</base-button>
+    <v-btn icon size="small" class="delete-button" @click="deleteDrop">
+      <v-icon color="red" icon="mdi-minus-circle"></v-icon>
+    </v-btn>
   </v-row>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
+  props: ["id"],
   data() {
     return {
       disableTextField: false,
@@ -40,23 +44,27 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("farm", ["getDrops"]),
     buttonCuption() {
       return !this.disableTextField ? "Save" : "Change";
     },
   },
   methods: {
-    ...mapActions("farm", ["addDrop"]),
+    ...mapActions("farm", ["changeDrop"]),
     toggleTextField() {
       this.disableTextField = !this.disableTextField;
     },
     saveDrop() {
       this.disableTextField = true;
       // Set data to state.drops
-      this.addDrop({
+      this.$store.dispatch("farm/changeDrop", {
+        id: this.id,
         name: this.name,
         chance: this.chance,
         cost: this.cost,
       });
+      console.log("ID ", this.id);
+      console.log(this.getDrops);
       // Set emit to DropRate that Drop item was saved
       this.$emit("drop-save");
     },
@@ -64,8 +72,18 @@ export default {
       this.disableTextField = false;
       this.$emit("change-save");
     },
+    deleteDrop() {
+      // Вызов mutatuion
+      this.$store.commit("farm/deleteDrop", {
+        id: this.id,
+      });
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.delete-button {
+  margin: 0.75rem;
+}
+</style>

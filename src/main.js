@@ -17,8 +17,8 @@ const app = createApp(App);
 app.component("base-button", BaseButton);
 app.component("base-card", BaseCard);
 
+app.use(store);
 app.use(router);
 app.use(vuetify);
-app.use(store);
 
 app.mount("#app");

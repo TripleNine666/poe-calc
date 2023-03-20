@@ -6,8 +6,9 @@
     </v-card-item>
     <!-- drop component -->
     <drop-item
-      v-for="_ in dropAmount"
-      :key="_"
+      v-for="drop in getDrops"
+      :key="drop.dropId"
+      :id="drop.dropId"
       @drop-save="dropSavedIncriment(true)"
       @change-save="dropSavedIncriment()"
     ></drop-item>
@@ -32,30 +33,30 @@
 
 <script>
 import DropItem from "./DropItem.vue";
-
+import { mapGetters } from "vuex";
 export default {
   components: { DropItem },
   data() {
     return {
-      dropAmount: 1,
+      // dropAmount: 1,
       dropSavedAmount: 0,
     };
   },
   computed: {
-    drops() {
-      return this.$state.getters["farm/getDrops"];
-    },
+    ...mapGetters("farm", ["dropAmount", "getDrops"]),
     showDeleteButton() {
       return this.dropAmount > 0;
     },
     showResultButtonAvailable() {
-      console.log(this.dropAmount !== this.dropSavedAmount);
       return this.dropAmount !== this.dropSavedAmount;
     },
   },
   methods: {
     addDrop() {
-      this.dropAmount++;
+      console.log(this.getDrops);
+      this.$store.dispatch("farm/addEmptyDrop", {
+        id: Math.random().toString(36).substr(2, 9),
+      });
     },
     deleteDrop() {
       this.dropAmount--;
@@ -66,7 +67,6 @@ export default {
       } else {
         this.dropSavedAmount--;
       }
-      console.log(this.dropSavedAmount);
     },
   },
 };

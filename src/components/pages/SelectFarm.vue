@@ -7,7 +7,7 @@
 
 <script>
 import DropRate from "../drop/DropRate.vue";
-import WhatRuning from "../WhatRuning.vue";
+import WhatRuning from "../drop/WhatRuning.vue";
 export default {
   components: {
     WhatRuning,
