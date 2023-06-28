@@ -5,7 +5,6 @@ export default {
   changeDrop(state, payload) {
     // Я сделал изменение, нужно проверить и добавить удаление
     const index = payload.index;
-    console.log("INDEX ", index);
     state.drops[index].dropName = payload.name;
     state.drops[index].dropChance = payload.chance;
     state.drops[index].dropCost = payload.cost;

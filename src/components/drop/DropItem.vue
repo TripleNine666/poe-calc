@@ -34,6 +34,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+  emits: ["drop-save", "change-save", "delete-item"],
   props: ["id"],
   data() {
     return {
@@ -73,6 +74,9 @@ export default {
       this.$emit("change-save");
     },
     deleteDrop() {
+      if (this.disableTextField) {
+        this.$emit("delete-item")
+      }
       // Вызов mutatuion
       this.$store.commit("farm/deleteDrop", {
         id: this.id,

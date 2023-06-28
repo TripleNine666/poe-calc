@@ -11,6 +11,7 @@
       :id="drop.dropId"
       @drop-save="dropSavedIncriment(true)"
       @change-save="dropSavedIncriment()"
+      @delete-item="dropSavedIncriment()"
     ></drop-item>
     <!-- add drop button -->
     <div class="actions">
@@ -38,7 +39,6 @@ export default {
   components: { DropItem },
   data() {
     return {
-      // dropAmount: 1,
       dropSavedAmount: 0,
     };
   },
@@ -57,9 +57,6 @@ export default {
       this.$store.dispatch("farm/addEmptyDrop", {
         id: Math.random().toString(36).substr(2, 9),
       });
-    },
-    deleteDrop() {
-      this.dropAmount--;
     },
     dropSavedIncriment(incriment = false) {
       if (incriment) {
