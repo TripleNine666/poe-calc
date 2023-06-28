@@ -18,4 +18,8 @@ export default {
     };
     context.commit("addDrop", drop);
   },
+  changeRunInfo(context, payload) {
+    console.log(payload);
+    context.commit("changeRunInfo", payload);
+  }
 };

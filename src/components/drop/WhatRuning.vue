@@ -27,6 +27,7 @@
           :error-messages="v$.circleTime.$errors.map(e => e.$message)"
           label="Время в минутах"
           prefix="мин"
+          type="number"
           required
           @input="v$.circleTime.$touch"
           @blur="v$.circleTime.$touch"
@@ -36,6 +37,7 @@
           v-model="state.circleAmount"
           :error-messages="v$.circleAmount.$errors.map(e => e.$message)"
           label="Количество"
+          type="number"
           required
           @change="v$.circleAmount.$touch"
           @blur="v$.circleAmount.$touch"
@@ -46,6 +48,7 @@
           :error-messages="v$.cost.$errors.map(e => e.$message)"
           label="Стимость"
           prefix="хаос"
+          type="number"
           required
           @change="v$.cost.$touch"
           @blur="v$.cost.$touch"
@@ -70,7 +73,9 @@
 import { reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import { useStore } from 'vuex' // импортируйте useStore из vuex
 
+const store = useStore() // получите доступ к store с помощью useStore
 const initialState = {
   name: '',
   circleTime: null,
@@ -100,5 +105,11 @@ function clear () {
 }
 function submit(){
   // TODO: add run state + add submit state + make all fields disabled and change buttons to edit button
+  store.dispatch("farm/changeRunInfo", {
+    farmName: state.name,
+    oneCircleTime: Number(state.circleTime),
+    circlesAmount: Number(state.circleAmount),
+    cost: Number(state.cost),
+  })
 }
-</script>a
+</script>

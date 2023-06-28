@@ -6,10 +6,13 @@ export default {
   namespaced: true,
   state() {
     return {
-      farmName: "",
-      oneCircleTime: null,
-      circlesAmount: null,
-      cost: null,
+      runInfo: {
+        farmName: "",
+        oneCircleTime: null,
+        circlesAmount: null,
+        cost: null,
+      },
+      farmFormIsSumbmited: false,
       drops: [],
     };
   },

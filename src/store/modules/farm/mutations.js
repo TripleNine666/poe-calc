@@ -14,4 +14,7 @@ export default {
     const index = drops.map((el) => el.dropId).indexOf(payload.id);
     state.drops.splice(index, 1);
   },
+  changeRunInfo(state, payload){
+    state.runInfo = payload;
+  }
 };
