@@ -2,11 +2,7 @@ export default {
   changeDrop(context, payload) {
     // Add id and fix bug
     const drops = context.getters.getDrops;
-    const index = drops.map((el) => el.dropId).indexOf(payload.id);
-    console.log(
-      "drops.map((el) => el.id) ",
-      drops.map((el) => el.id)
-    );
+    const index = drops.findIndex((el) => el.dropId === payload.id);
     const drop = {
       ...payload,
       index,
